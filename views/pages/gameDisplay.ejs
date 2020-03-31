@@ -1,0 +1,137 @@
+<%#
+takes:
+    gameState,
+    players,
+    gameIsInSession,
+    isLoggedIn
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chess Gaming</title>
+<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- chess Board JS -->
+    <script src="/js/chessBoard.js"></script>
+<!-- Bootstrap 4 JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- Chess Board CSS -->
+    <link rel="stylesheet" href="/css/chessBoard.css">
+</head>
+<body>
+    <% if(gameIsInSession) { %>
+    <div class="pop-up hidden">
+    <% } else { %>
+    <div class="pop-up">
+    <% } %>
+        <div class="row">
+            <div class="col-md-3 col-sm-1"></div>
+            <div class="col-md-6 col-sm-10 pop-up_content">
+                <div class="exit">&#9746;</div>
+                <!-- play game field start -->
+                <div id="play" class="floating-form">
+                    <h2>Play</h2>
+                    <div id="friendNameGroup" class="form-group hidden">
+                        <input id="friendName" type="text" class="" placeholder="Friend's Name">
+                    </div>
+                    <div class="form-group">
+                        <input id="playFriend" type="button" class="btn-warning submit" onclick="showNameBox();" value="Play a friend">
+                    </div>
+                    <div class="form-group">
+                        <input id="playRandom" type="button" class="btn-warning submit" onclick="playRandom();" value="Play at random">
+                    </div>
+                    <div class="sign-up-txt">
+                        Already have an account? <a onclick="showLogin();" class="link">Login</a>
+                    </div>
+                </div>
+                <!-- play game field end -->
+                <!-- login start -->
+                <div id="login" class="hidden">
+                    <h2>Sign in to your account</h2>
+                    <div class="floating-form" autocomplete="off">
+                        <div id="invalidLogin" class="invalid-feedback"></div>
+                        <div class="form-group">
+                            <input type="text" size="30" name="username" id="username" autofocus class="form-control">
+                            <label class="label">User name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" size="30" id="password" class="form-control">
+                            <label class="label">Password</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="submit" id="loginSubmit" value="Sign In">
+                        </div>
+                    </div>
+                    <div class="sign-up-txt">
+                        Don't have an account? <a onclick="showSignup();" class="link">Signup</a>
+                    </div>
+                    <div>
+                        <a onclick="showPlay();" class="link">Play a game</a>
+                    </div>
+                </div>
+                <!-- login end -->
+                <!-- signup slide START -->
+                <div id="signup" class="hidden">
+                    <h2>Create a new account</h2>
+                    <div class="floating-form">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="label">Username</label>
+                                    <input id="newUsername" type="text" class="form-control">
+                                    <div id="invalidUsername" class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="label">Email</label>
+                                    <input id="newEmail" type="text" class="form-control">
+                                    <div id="invalidEmail" class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label class="label">Password</label>
+                                <input id="newPassword1" type="password" class="form-control">
+                                <div id="invalidPassword1" class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="label">Confirm Password</label>
+                                <input id="newPassword2" type="password" class="form-control">
+                                <div id="invalidPassword2" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input id="addNewUser" type="button" class="submit" value="Sign Up">
+                        </div>
+                    </div>
+                <div class="sign-up-txt">
+                    Already have an account? <a onclick="showLogin();" class="link">Login</a>
+                </div>
+                <div>
+                    <a onclick="showPlay();" class="link">Play a game</a>
+                </div>
+            </div>
+            <!-- signup slide END -->
+            </div>
+            <div class="col-md-3 col-sm-1"></div>
+        </div>
+    </div>
+    <div id="content">
+        <h1 id="pageTop">new game</h1>
+
+        <h5 class="playerName"><%= players.playerNames[1] %></h5>
+        <div class="chessBoardDisplay"></div>
+        <div>
+            <h5 class="playerName"><%= players.playerNames[0] %></h5>
+        </div>
+    </div>
+</body>
+</html>
